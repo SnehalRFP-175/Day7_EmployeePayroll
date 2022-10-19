@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -21,5 +22,14 @@ public class EmployeePayrollDTO {
     @Min(value=100 , message = "The Salary Should be more than 100")
     public long salary;
 
-   
-   }
+    public String gender;
+
+    public LocalDate startDate;
+
+    public String note;
+
+    public String profilePic;
+
+    public List<String> department;
+
+}
