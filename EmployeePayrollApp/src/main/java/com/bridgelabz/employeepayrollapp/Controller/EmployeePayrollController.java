@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /*
-* Validation UC3- User Friendly Errors in case Employee Id is not found in Employee Payroll App.
+* Day 7 UC1- Adding the fields to Employee Payroll DTO and DATA.
 * */
 @RestController
 @RequestMapping("/empData")
