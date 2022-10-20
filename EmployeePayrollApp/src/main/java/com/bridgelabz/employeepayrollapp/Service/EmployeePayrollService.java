@@ -3,6 +3,8 @@ package com.bridgelabz.employeepayrollapp.Service;
 import com.bridgelabz.employeepayrollapp.DTO.EmployeePayrollDTO;
 import com.bridgelabz.employeepayrollapp.Exception.EmployeePayrollException;
 import com.bridgelabz.employeepayrollapp.Model.EmployeePayrollData;
+import com.bridgelabz.employeepayrollapp.Repository.EmployeePayrollRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,9 +13,13 @@ import java.util.List;
 public class EmployeePayrollService implements IEmployeePayrollService{
 
     private List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
+
+    @Autowired
+    EmployeePayrollRepository employeePayrollRepository;
+
+
     @Override
     public List<EmployeePayrollData> getEmployeePayrollData() {
-        List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
         return employeePayrollList;
     }
 
@@ -33,14 +39,19 @@ public class EmployeePayrollService implements IEmployeePayrollService{
         EmployeePayrollData employeePayrollData = null;
         employeePayrollData = new EmployeePayrollData(employeePayrollList.size()+1,employeePayrollDTO);
         employeePayrollList.add(employeePayrollData);
-        return employeePayrollData;
+        return employeePayrollRepository.save(employeePayrollData);
     }
 
     @Override
     public EmployeePayrollData updateEmployeePayrollData(int empId,EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData employeePayrollData = this.getEmployeePayrollDataByID(empId);
         employeePayrollData.setName(employeePayrollDTO.name);
+        employeePayrollData.setGender(employeePayrollDTO.gender);
         employeePayrollData.setSalary(employeePayrollDTO.salary);
+        employeePayrollData.setStartDate(employeePayrollDTO.startDate);
+        employeePayrollData.setNote(employeePayrollDTO.note);
+        employeePayrollData.setProfilePic(employeePayrollDTO.profilePic);
+        employeePayrollData.setDepartment(employeePayrollDTO.department);
         employeePayrollList.set(empId-1,employeePayrollData);
         return employeePayrollData;
     }

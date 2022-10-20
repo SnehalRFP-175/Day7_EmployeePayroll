@@ -19,14 +19,16 @@ public class EmployeePayrollDTO {
     @NotEmpty(message = "Employee name cannot be empty")
     @Pattern(regexp = "^[A-Z][a-zA-Z\\s]{2,}$", message = "Employee name Invalid")
     public String name;
-    @Min(value=500 , message = "The Salary Should be more than 100")
-    public long salary;
 
     @NotEmpty(message = "Gender cannot be Null")
     @Pattern(regexp = "Male|Female", message = "Gender needs to be Male or Female")
     public String gender;
 
-   // @JsonFormat(pattern= "dd/MMM/yyyy")
+    @Min(value=500 , message = "The Salary Should be more than 100")
+    public long salary;
+
+
+    // @JsonFormat(pattern= "dd/MMM/yyyy")
     @NotNull(message = "Start Date cannot be empty")
     @PastOrPresent(message = "Start Date Should Be Past or Present")
     public LocalDate startDate;
