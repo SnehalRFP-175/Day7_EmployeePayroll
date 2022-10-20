@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService{
 
@@ -20,7 +21,7 @@ public class EmployeePayrollService implements IEmployeePayrollService{
 
     @Override
     public List<EmployeePayrollData> getEmployeePayrollData() {
-        return employeePayrollList;
+        return employeePayrollRepository.findAll();
     }
 
 
@@ -30,35 +31,27 @@ public class EmployeePayrollService implements IEmployeePayrollService{
     @Override
     public EmployeePayrollData getEmployeePayrollDataByID(int empId) {
 
-        return employeePayrollList.stream().filter(employeePayrollData -> employeePayrollData.getEmpId() == empId).
-                findFirst().orElseThrow(() -> new EmployeePayrollException("Employee Not Found...!"));
-    }
+        return employeePayrollRepository.findById(empId)
+                .orElseThrow(() -> new EmployeePayrollException("Employee Not Present......!"));    }
 
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData employeePayrollData = null;
-        employeePayrollData = new EmployeePayrollData(employeePayrollList.size()+1,employeePayrollDTO);
-        employeePayrollList.add(employeePayrollData);
+        employeePayrollData = new EmployeePayrollData(employeePayrollDTO);
         return employeePayrollRepository.save(employeePayrollData);
     }
 
     @Override
     public EmployeePayrollData updateEmployeePayrollData(int empId,EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData employeePayrollData = this.getEmployeePayrollDataByID(empId);
-        employeePayrollData.setName(employeePayrollDTO.name);
-        employeePayrollData.setGender(employeePayrollDTO.gender);
-        employeePayrollData.setSalary(employeePayrollDTO.salary);
-        employeePayrollData.setStartDate(employeePayrollDTO.startDate);
-        employeePayrollData.setNote(employeePayrollDTO.note);
-        employeePayrollData.setProfilePic(employeePayrollDTO.profilePic);
-        employeePayrollData.setDepartment(employeePayrollDTO.department);
-        employeePayrollList.set(empId-1,employeePayrollData);
-        return employeePayrollData;
+        employeePayrollData.updateEmployeeData(employeePayrollDTO);
+        return employeePayrollRepository.save(employeePayrollData);
     }
 
 
     @Override
     public void deleteEmployeePayroll(int empId) {
-        employeePayrollList.remove(empId-1);
+        EmployeePayrollData empData = this.getEmployeePayrollDataByID(empId);
+        employeePayrollRepository.delete(empData);
     }
 }
