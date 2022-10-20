@@ -34,7 +34,10 @@ public class EmployeePayrollData {
     @Column(name = "department")
     private List<String> department;
 
-    public EmployeePayrollData(int empId, EmployeePayrollDTO employeePayrollDTO) {
+    public EmployeePayrollData( EmployeePayrollDTO employeePayrollDTO) {
+        this.updateEmployeeData(employeePayrollDTO);
+    }
+    public void updateEmployeeData(EmployeePayrollDTO employeePayrollDTO) {
         this.empId = empId;
         this.name = employeePayrollDTO.name;
         this.salary = employeePayrollDTO.salary;
@@ -43,7 +46,6 @@ public class EmployeePayrollData {
         this.note = employeePayrollDTO.note;
         this.profilePic = employeePayrollDTO.profilePic;
         this.department = employeePayrollDTO.department;
+
     }
-
-
 }

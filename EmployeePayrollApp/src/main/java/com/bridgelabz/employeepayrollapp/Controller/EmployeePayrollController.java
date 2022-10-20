@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /*
-* Day 7 UC3- Saving Employee Payroll Data to the EmployeePayroll Database
+* Day 7 UC4- CURD Services Methods with  MySql Database
 * */
 @RestController
 @RequestMapping("/empData")
