@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /*
-* Day 7 UC4- CURD Services Methods with  MySql Database
+* Day 7 UC5 - Retrieve all the Data of Employee Payroll by Department
 * */
 @RestController
 @RequestMapping("/empData")
@@ -38,6 +38,14 @@ public class EmployeePayrollController {
         employeePayrollData = employeePayrollService.getEmployeePayrollDataByID(empId);
         ResponseDTO respDTO = new ResponseDTO("Get Call Success", employeePayrollData);
         return new ResponseEntity<ResponseDTO> (respDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDTO> getEmployeePayrollDataByDepartment(@PathVariable("department") String department){
+        List<EmployeePayrollData> empDataList = null;
+        empDataList =employeePayrollService.getEmployeePayrollByDepartment(department);
+        ResponseDTO respDTO = new ResponseDTO("Get call success", empDataList);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 
     @PostMapping(path = "/create")

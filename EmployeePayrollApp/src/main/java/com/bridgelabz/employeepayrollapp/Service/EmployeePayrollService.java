@@ -34,6 +34,7 @@ public class EmployeePayrollService implements IEmployeePayrollService{
         return employeePayrollRepository.findById(empId)
                 .orElseThrow(() -> new EmployeePayrollException("Employee Not Present......!"));    }
 
+
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData employeePayrollData = null;
@@ -54,4 +55,10 @@ public class EmployeePayrollService implements IEmployeePayrollService{
         EmployeePayrollData empData = this.getEmployeePayrollDataByID(empId);
         employeePayrollRepository.delete(empData);
     }
+
+    @Override
+    public List<EmployeePayrollData> getEmployeePayrollByDepartment(String department) {
+        return employeePayrollRepository.findEmployeesByDepartment(department);
+    }
+
 }
