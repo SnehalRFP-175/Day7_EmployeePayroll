@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /*
-* Day 7 UC1- Adding the fields to Employee Payroll DTO and DATA.
+* Day 7 UC2- Adding Validations
 * */
 @RestController
 @RequestMapping("/empData")
